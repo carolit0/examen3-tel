@@ -12,8 +12,8 @@
         }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1e1e2f, #2a2a40);
-            color: #ffffff;
+            /* Fondo completamente rosado pastel */
+            background: #ffb6c1; 
             height: 100vh;
             display: flex;
             justify-content: center;
@@ -22,51 +22,71 @@
             position: relative;
         }
         .card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.85); /* Tarjeta blanca semitransparente */
+            border: 2px solid #ff69b4;
             padding: 40px;
             border-radius: 20px;
             text-align: center;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             max-width: 500px;
             z-index: 10;
         }
         h1 {
-            font-size: 2.5rem;
-            color: #ff6b81;
+            font-size: 2.3rem;
+            color: #ff1493; /* Rosado oscuro para el título */
             margin-bottom: 20px;
-            text-shadow: 0 0 10px rgba(255, 107, 129, 0.5);
         }
         p {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             line-height: 1.6;
-            color: #d1d1e9;
+            color: #333333;
             margin-bottom: 15px;
         }
         .footer {
-            margin-top: 30px;
-            font-size: 0.9rem;
-            color: #a2a2d0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 25px;
+            font-size: 1rem;
+            color: #ff1493;
+            border-top: 2px dashed #ffb6c1;
             padding-top: 15px;
         }
-        /* Estilos para los corazones flotantes */
+
+        /* --- CORAZONES CSS PURO (Para garantizar que floten siempre) --- */
         .heart {
             position: absolute;
-            color: #ff6b81;
-            font-size: 20px;
+            width: 20px;
+            height: 20px;
+            background-color: #ff1493;
+            transform: rotate(-45deg);
             pointer-events: none;
             animation: floatUp 4s linear forwards;
             opacity: 0.8;
         }
+        .heart::before, .heart::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #ff1493;
+            border-radius: 50%;
+        }
+        .heart::before {
+            top: -10px;
+            left: 0;
+        }
+        .heart::after {
+            top: 0;
+            left: 10px;
+        }
+
         @keyframes floatUp {
             0% {
-                transform: translateY(100vh) scale(0) rotate(0deg);
+                bottom: -50px;
+                transform: rotate(-45deg) scale(0);
                 opacity: 1;
             }
             100% {
-                transform: translateY(-10vh) scale(1.5) rotate(360deg);
+                bottom: 105vh;
+                transform: rotate(-45deg) scale(1.5);
                 opacity: 0;
             }
         }
@@ -75,48 +95,42 @@
 <body>
 
     <div class="card">
-        <h1>¡Hola, Profe! 👋</h1>
-        <p>Se extraña un montón la clase de Telemática y los laboratorios en vivo.</p>
-        <p>Este es mi servicio web completamente propio, desplegado de manera persistente sobre un contenedor Docker autónomo en AWS.</p>
+        <h1>¡Hola profee! 👋</h1>
+        <p>se extraña la clase la verdad :((.</p>
+        <p>Aprendi mucho, gracias por todo &lt;3</p>
         <div class="footer">
             <p><strong>Estudiante:</strong> Carolina</p>
-            <p>Examen 3 • Servidores de Producción</p>
+            <p>Examen 3 • Telemática</p>
         </div>
     </div>
 
     <script>
-        // Función para crear un corazoncito flotante
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart');
-            heart.innerHTML = '❤️';
             
-            // Posición horizontal aleatoria
+            // Ubicación horizontal aleatoria
             heart.style.left = Math.random() * 100 + 'vw';
             
-            // Tamaño aleatorio para dar profundidad
-            const size = Math.random() * 1.5 + 0.5;
-            heart.style.transform = `scale(${size})`;
-            
-            // Velocidad de subida aleatoria
-            const duration = Math.random() * 3 + 2;
+            // Velocidad aleatoria
+            const duration = Math.random() * 3 + 2.5;
             heart.style.animationDuration = duration + 's';
             
             document.body.appendChild(heart);
             
-            // Eliminar el corazón cuando termine la animación
+            // Borrar cuando termine la animación
             setTimeout(() => {
                 heart.remove();
             }, duration * 1000);
         }
 
-        // Generar corazones automáticamente de forma continua
-        setInterval(createHeart, 300);
-        document.addEventListener('click', (e) => {
-                createHeart();
-            }
-        });
-</body>
-</html>    </script>
-            for(let i=0; i<5; i++) {
+        // Lluvia constante de corazones cada 250ms
+        setInterval(createHeart, 250);
 
+        // Corazones extra al hacer clic
+        document.addEventListener('click', () => {
+            for(let i=0; i<6; i++) { createHeart(); }
+        });
+    </script>
+</body>
+</html>
